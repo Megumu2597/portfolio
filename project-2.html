@@ -22,12 +22,12 @@
         <div class="header__logo-container">
           <div class="header__logo-img-cont">
             <img
-              src="./assets/png/john-doe.png"
+              src="./assets/png/40x30mm.png"
               alt="Ram Maheshwari Logo Image"
               class="header__logo-img"
             />
           </div>
-          <span class="header__logo-sub">John Doe</span>
+          <span class="header__logo-sub">Megumu Tsukamoto</span>
         </div>
         <div class="header__main">
           <ul class="header__links">
@@ -43,7 +43,7 @@
               </a>
             </li>
             <li class="header__link-wrapper">
-              <a href="./index.html#contact" class="header__link"> Contact </a>
+              <a href="./index.html#profile" class="header__link"> Profile </a>
             </li>
           </ul>
           <div class="header__main-ham-menu-cont">
@@ -76,7 +76,7 @@
             </li>
 
             <li class="header__sm-menu-link">
-              <a href="./index.html#contact"> Contact </a>
+              <a href="./index.html#profile"> Profile </a>
             </li>
           </ul>
         </div>
@@ -84,17 +84,25 @@
     </header>
     <section class="project-cs-hero">
       <div class="project-cs-hero__content">
-        <h1 class="heading-primary">Project 2</h1>
+        <h1 class="heading-primary">VR Room</h1>
         <div class="project-cs-hero__info">
           <p class="text-primary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-            in numquam incidunt earum quaerat cum fuga, atque similique natus
-            nobis sit.
+            VRゴーグルを付けなくても360度映像を楽しみたいと思い、自分の体(目や手)の動きに合わせてプロジェクターが動き、それに合わせて映し出される中の映像も変化するシステムを制作.
+            VRゴーグルを付けずとも部屋の中でプラネタリウムを360度映像として楽しめるようにした.大学３年次に初めて作ったオリジナルのシステム.
           </p>
         </div>
+        <!--
         <div class="project-cs-hero__cta">
           <a href="#" class="btn btn--bg" target="_blank">Live Link</a>
         </div>
+        -->
+        <img
+                src="./assets/jpeg/vrroom2.jpg"
+                alt="Software Screenshot"
+                class="projects__row-img"
+                loading="lazy"
+                width="100"
+              />
       </div>
     </section>
     <section class="project-details">
@@ -102,7 +110,7 @@
         <div class="project-details__content">
           <div class="project-details__showcase-img-cont">
             <img
-              src="./assets/jpeg/project-mockup-example.jpeg"
+              src="./assets/png/vrroom_system.png"
               alt="Project Image"
               class="project-details__showcase-img"
             />
@@ -111,53 +119,58 @@
             <div class="project-details__desc">
               <h3 class="project-details__content-title">Project Overview</h3>
               <p class="project-details__desc-para">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-                alias tenetur minus quaerat aliquid, aut provident blanditiis,
-                deleniti aspernatur ipsam eaque veniam voluptatem corporis vitae
-                mollitia laborum corrupti ullam rem. Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Neque alias tenetur minus quaerat
-                aliquid, aut provident blanditiis, deleniti aspernatur ipsam
-                eaque veniam voluptatem corporis vitae mollitia laborum corrupti
-                ullam rem?
+                上のシステム図に示すような構成で設計した.
+                2軸回転可能なアームで把持したプロジェクターで壁や天井に星座の映像を投影しておいて、カメラの前での手をふると、プロジェクターが回転して投影位置を動かし、
+                それに合わせて星座の映像も変化させるように実装した。
+                このシステムによって体の動きが眼前の映像情報に干渉し、さらに映像内の視野と現実の視野がリンクするVR体験のようなものを,HMDを装着せずに実現させた。
               </p>
               <p class="project-details__desc-para">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-                alias tenetur minus quaerat aliquid, aut provident blanditiis,
-                deleniti aspernatur ipsam eaque veniam voluptatem corporis vitae
-                mollitia laborum corrupti ullam rem?
+                ハードは２軸回転用アームを3Dプリンターで製作した.
+                システムはカメラ画像からの体の動きの抽出、映像処理、アクチュエータの制御の3つのモジュールを通信させてできている。具体的にそれぞれの手法を説明すると、
+              </p>
+              <p class="project-details__desc-para">
+                1.身体の動きの検出は、OpenCVで手の色を抽出するようにマスク処理をして、その最大連結領域を画面内での手の位置として、
+                その座標に合わせて回転信号を生成した。処理速度や暗所での安定性,キャリブレーションが不要などの観点から手の位置による制御となった。
+               
+              </p>
+              <p class="project-details__desc-para">
+                2.映像はunityで天体データから適切な位置に星を作成し、星座線で結び、1からの回転信号に応じて映像内の視野も回転するようにした。
+                また、処理の軽量化のために画面外の星は描画しないようにした。
+              </p>
+              <p class="project-details__desc-para">
+                3.アクチュエータはArduinoIDEのライブラリを用いてサーボモーターに角度を指定して制御した。また、通信プロトコルとしては、python-Unity間では遅延の少ないUDPを、Unity-Arduino間では同期が保証されるTCPを用いた。
+              </p>
+              <p class="project-details__desc-para">
+              以上の手法で当初の目的を達成し、通信の高速、安定化により操作への応答を滑らかにできたが、貸与してもらったプロジェクターの投影面積が狭いためHMDほどの臨場感はなかった。数万の広角プロジェクターには手が出なかった.
               </p>
             </div>
             <div class="project-details__tools-used">
               <h3 class="project-details__content-title">Tools Used</h3>
               <div class="skills">
-                <div class="skills__skill">HTML</div>
-                <div class="skills__skill">CSS</div>
-                <div class="skills__skill">JavaScript</div>
-                <div class="skills__skill">React</div>
-                <div class="skills__skill">SASS</div>
-                <div class="skills__skill">GIT</div>
-                <div class="skills__skill">Shopify</div>
-                <div class="skills__skill">Wordpress</div>
-                <div class="skills__skill">Google ADS</div>
-                <div class="skills__skill">Facebook Ads</div>
-                <div class="skills__skill">Android</div>
-                <div class="skills__skill">IOS</div>
+                <div class="skills__skill">Python</div>
+                <div class="skills__skill">Arduino</div>
+                <div class="skills__skill">Unity</div>
+                <div class="skills__skill">C#</div>
+                <div class="skills__skill">3DCAD</div>
+
               </div>
             </div>
             <div class="project-details__links">
-              <h3 class="project-details__content-title">See Live</h3>
+              <h3 class="project-details__content-title"> Link</h3>
               <a
                 href="#"
                 class="btn btn--med btn--theme project-details__links-btn"
                 target="_blank"
-                >Live Link</a
+                >Code Link</a
               >
+              <!--
               <a
                 href="#"
                 class="btn btn--med btn--theme-inv project-details__links-btn"
                 target="_blank"
                 >Code Link</a
               >
+              -->
             </div>
           </div>
         </div>
@@ -171,48 +184,24 @@
               <span>Social</span>
             </h2>
             <div class="main-footer__social-cont">
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/linkedin-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
+              
+              <a target="_blank" rel="noreferrer" href="https://github.com/Megumu2597">
                 <img
                   class="main-footer__icon"
                   src="./assets/png/github-ico.png"
                   alt="icon"
                 />
               </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/twitter-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/yt-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon main-footer__icon--mr-none"
-                  src="./assets/png/insta-ico.png"
-                  alt="icon"
-                />
-              </a>
+              
             </div>
           </div>
           <div class="main-footer__row main-footer__row-2">
-            <h4 class="heading heading-sm text-lt">John Doe</h4>
+            <h4 class="heading heading-sm text-lt">Megumu Tsukamoto</h4>
             <p class="main-footer__short-desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit facilis
-              tempora explicabo quae quod deserunt
+              知的なロボットシステム開発の研究で機械学習技術を勉強している東大修士1年生.
+              研究やインターンで画像処理や自然言語処理、テーブルデータなど幅広い分野に触れる.
+              音楽も技術もその時に取り組んでいるものを好きになる性格.
+
             </p>
           </div>
         </div>
